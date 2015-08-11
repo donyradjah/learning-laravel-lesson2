@@ -23,6 +23,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->when('App\Http\Controllers\UserController')
+            ->needs('App\Domain\Contract\Crudable')
+            ->give('App\Domain\Repositories\UserRepository');
+        $this->app->when('App\Http\Controllers\UserController')
+            ->needs('App\Domain\Contract\Paginable')
+            ->give('App\Domain\Repositories\UserRepository');
+        $this->app->when('App\Http\Controllers\UserController')
+            ->needs('App\Domain\Contract\Searchable')
+            ->give('App\Domain\Repositories\UserRepository');
     }
 }

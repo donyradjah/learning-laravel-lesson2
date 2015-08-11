@@ -6,7 +6,7 @@
  * Time: 8:27
  */
 
-namespace app\Domain\Contract;
+namespace App\Domain\Contract;
 
 
 interface Paginable

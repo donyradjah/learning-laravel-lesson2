@@ -6,18 +6,39 @@
  * Time: 9:44
  */
 
-namespace app\Domain\Contract;
+namespace App\Domain\Contract;
 
 
+/**
+ * Interface Repository
+ * @package app\Domain\Contract
+ */
 interface Repository
 {
-    public  function all();
+    /**
+     * @return mixed
+     */
+    public function all();
 
-    public  function  getManyBy($key, $value);
+    /**
+     * @param $key
+     * @param $value
+     * @return mixed
+     */
+    public function  getManyBy($key, $value);
 
-    public function getFirsBy($key, $value);
+    /**
+     * @param $key
+     * @param $value
+     * @return mixed
+     */
+    public function getFirstBy($key, $value);
 
-    public function  instance (array $attributes =[]);
+    /**
+     * @param array $attributes
+     * @return mixed
+     */
+    public function  instance(array $attributes = []);
 
 
 }

@@ -6,81 +6,107 @@
  * Time: 11:01
  */
 
-namespace app\Domain\Repositories;
+namespace App\Domain\Repositories;
 
 
-use app\Domain\Contract\Crudable;
-use app\Domain\Contract\Paginable;
-use app\Domain\Contract\Searchable;
+use App\Domain\Contract\Crudable;
+use App\Domain\Contract\Paginable;
+use App\Domain\Contract\Searchable;
+use App\User;
 
-class UserRepository implements Crudable,Paginable,Searchable
+/**
+ * Class UserRepository
+ *
+ * @package App\Domain\Repositories
+ */
+class UserRepository extends AbstractRepository implements Crudable, Paginable, Searchable
 {
 
-    public function index()
+    /**
+     * @param User $user
+     */
+    public function __construct(User $user)
     {
-
-        return user::all();
-
+        $this->model = $user;
     }
 
-    public function create(array $data)
-    {
-        $user = new user;
-
-        $user->name = $data['name'];
-        $user->phone = $data['phone'];
-        $user->email = $data['email'];
-        $user->address = $data['address'];
-        $user->level = $data['level'];
-        $user->password = $data['password'];
-        $user->save();
-
-        return $user;
-    }
-
-    public function update($id, array $data)
-    {
-
-        $user = user::findOrNew($id);
-        $user->name = $data['name'];
-        $user->phone = $data['phone'];
-        $user->email = $data['email'];
-        $user->address = $data['address'];
-        $user->level = $data['level'];
-        $user->password = $data['password'];
-        $user->save();
-
-        return $user;
-
-    }
-
-    public function show($id)
-    {
-        return user::findOrNew($id);
-    }
-
-    public function delete($id)
-    {
-        $user = user::findOrNew($id);
-        $user->delete();
-        return $user;
-    }
-
+    /**
+     * @param int $id
+     * @param array $columns
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
     public function find($id, array $columns = ['*'])
     {
-        $user = user::find($id, $columns);
-        return $user;
+        return parent::find($id, $columns);
     }
 
-    public function getByPage($limit = 10, array $column = ['*']){
+    /**
+     * @param array $data
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function create(array $data)
+    {
+        return parent::create(
+            [
+                'name'     => $data['name'],
+                'phone'    => $data['phone'],
+                'email'    => $data['email'],
+                'address'  => $data['address'],
+                'level'    => $data['level'],
+                'password' => bcrypt($data['password'])
+            ]);
+    }
 
-        $user  = user::getByPage($limit, $column);
-        return $user;
+    /**
+     * @param $id
+     * @param array $data
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update($id, array $data)
+    {
+        return parent::update($id, [
+            'name '     => $data['name'],
+            'phone '    => $data['phone'],
+            'email '    => $data['email'],
+            'address '  => $data['address'],
+            'level '    => $data['level'],
+            'password ' => bcrypt($data['password'])
+        ]);
 
     }
+
+    /**
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete($id)
+    {
+        return parent::delete($id);
+    }
+
+
+    /**
+     * @param int $limit
+     * @param array $column
+     *
+     * @return mixed
+     */
+    public function getByPage($limit = 10, array $column = ['*'])
+    {
+        return parent::getByPage($limit, $column);
+    }
+
+    /**
+     * @param $query
+     *
+     * @return mixed
+     */
     public function search($query)
     {
-        $guest = user::where('name','like','%'.$query.'%')->get();
-        return $guest;
+        return parent::likeSearch('name', $query);
     }
 }
