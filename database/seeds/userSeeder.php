@@ -12,15 +12,16 @@ class userSeeder extends Seeder
     public function run()
     {
 
+        DB::table('user')->truncate();
 
         DB::table('user')->insert([
             'id' => '',
-            'name' => 'Samida',
+            'name' => 'Samida10',
             'phone' => '08813146431',
             'email' => 'samidamamatek@gmail.com',
             'address' => 'Tajinan',
             'level' => 'admin',
-            'password' => bcrypt('secret'),
+            'password' => bcrypt('dony'),
         ]);
 
 
