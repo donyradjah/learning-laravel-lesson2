@@ -68,12 +68,12 @@ class UserRepository extends AbstractRepository implements Crudable, Paginable, 
     public function update($id, array $data)
     {
         return parent::update($id, [
-            'name '     => $data['name'],
-            'phone '    => $data['phone'],
-            'email '    => $data['email'],
-            'address '  => $data['address'],
-            'level '    => $data['level'],
-            'password ' => bcrypt($data['password'])
+            'name'     => $data['name'],
+            'phone'    => $data['phone'],
+            'email'    => $data['email'],
+            'address'  => $data['address'],
+            'level'    => $data['level'],
+            'password' => bcrypt($data['password'])
         ]);
 
     }

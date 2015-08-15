@@ -1,0 +1,48 @@
+<!-- Breadcrumbs -->
+<div class="page-title" data-ng-include="'tpl/parts/breadcrumbs.html'"></div>
+<!-- /Breadcrumbs -->
+
+
+
+<!-- Base -->
+<div class="row">
+<div class="card-panel">
+    <h4>Base</h4>
+
+    <table datatable="ng" dt-options="table1opts" class="display table table-bordered table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Level</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="a in contacts">
+            <td>{{ a.name }}</td>
+            <td>{{ a.email }}</td>
+            <td>{{ a.phone }}</td>
+            <td>{{ a.address }}</td>
+            <td>{{ a.level }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>`
+<script>
+    angular.module('contacts' ,['ngResource'])
+            .controller("Contacts", function ($scope,$resource){
+
+                var Contact = $resource('http://localhost:8000/user');
+                $scope.contacts = Contact.query();
+                window.Contact = Contact;
+            });
+</script>
+<!-- /Base -->
+
+
+<!-- With Search -->
+
+<!-- /Big Data + AJAX -->

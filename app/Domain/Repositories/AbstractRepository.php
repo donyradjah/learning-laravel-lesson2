@@ -125,6 +125,8 @@ abstract class AbstractRepository implements RepositoryContract
         }
 
         return $this->updateSuccess();
+
+
     }
 
     /**

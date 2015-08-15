@@ -5,9 +5,17 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Validation\Validator;
 
+/**
+ * Class UserRequest
+ *
+ * @package App\Http\Requests
+ */
 class UserRequest extends Request
 {
 
+    /**
+     * @var array
+     */
     protected $attrs = [
 
         'nama'     => 'Nama',
@@ -40,11 +48,21 @@ class UserRequest extends Request
         ];
     }
 
+    /**
+     * @param $validator
+     *
+     * @return mixed
+     */
     public function validator($validator)
     {
         return $validator->make($this->all(), $this->container->call([$this, 'rules']), $this->messages(), $this->attrs);
     }
 
+    /**
+     * @param Validator $validator
+     *
+     * @return array
+     */
     protected function formatError(Validator $validator)
     {
         $message = $validator->errors();

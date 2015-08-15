@@ -16,3 +16,8 @@ Route::get('/', function () {
 });
 Route::resource('user', 'UserController');
 Route::get('user-search', 'UserController@search');
+
+Route::get('dashboard', function (){
+
+    return view('index');
+});
