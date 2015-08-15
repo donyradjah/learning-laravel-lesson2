@@ -49,13 +49,7 @@
 </head>
 
 <body ng-controller="AppController">
-<!--
-  Top Navbar
-    Options:
-      .navbar-dark - dark color scheme
-      .navbar-static - static navbar
-      .navbar-under - under sidebar
--->
+
 <nav data-ng-include="'tpl/parts/top-navbar.html'" data-ng-controller="NavbarController" class="navbar-top"
      ng-class="{'navbar-dark': settings.navbar.dark, 'navbar-static': settings.navbar.static, 'navbar-under': settings.navbar.under}">
 </nav>
